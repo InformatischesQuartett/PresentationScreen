@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoadData : MonoBehaviour {
+public class LoadExtData : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
