@@ -35,6 +35,9 @@ public class DocumentClass : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Config.LoadData ();
+		//Config.PrintValues ();
+
 
 		/*Turning GUI on and off*/
 		if (Input.GetKeyDown (KeyCode.Tab)) {
