@@ -10,8 +10,9 @@ using System.Collections;
 public class DocumentClass : MonoBehaviour {
 	private Texture2D _backgroundTex;
 	private Texture2D _guiUnderlayTex;
+	private Texture2D _challengeModeTex;
 
-	public Texture2D LogoTex;
+	private Texture2D _logoTex;
 
 	private bool _enableGUI = true;
 	public bool EnableSceneLoop = false;
@@ -20,6 +21,9 @@ public class DocumentClass : MonoBehaviour {
 	private int _currSceneCounter = 0;
 
 	private string[] _scenes;
+
+	private GUIStyle _fontStyle;
+	private GUIStyle _cmStyle;
 	
 	void Awake () {
 		DontDestroyOnLoad(this);
@@ -28,9 +32,16 @@ public class DocumentClass : MonoBehaviour {
 	void Start () {
 		_backgroundTex = (Texture2D) Resources.Load ("Textures/background", typeof(Texture2D));
 		_guiUnderlayTex = (Texture2D) Resources.Load ("Textures/guiUnderlay", typeof(Texture2D));
-		LogoTex = (Texture2D) Resources.Load ("Textures/logo", typeof(Texture2D));
+		_logoTex = (Texture2D) Resources.Load ("Textures/logo", typeof(Texture2D));
+		_challengeModeTex = (Texture2D) Resources.Load ("Textures/challengeMode", typeof(Texture2D));
 
 		_scenes = new string[]  {"MainMenu", "HowTo", "BehindTheScenes"};
+
+		_fontStyle = new GUIStyle();
+		_fontStyle.font = (Font) Resources.Load("Fonts/BNKGOTHM");
+		_fontStyle.normal.textColor = Color.white;
+		_fontStyle.fontSize = 15;
+
 	}
 	
 	// Update is called once per frame
@@ -55,7 +66,7 @@ public class DocumentClass : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.Keypad3) || Input.GetKeyDown (KeyCode.Alpha3)) {
 			Debug.Log("Loading Level: Behind the Scenes");
-			//Application.LoadLevel("BehindTheScenes");
+			Application.LoadLevel("BehindTheScenes");
 		}
 		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha4)) {
 			EnableSceneLoop = !EnableSceneLoop;
@@ -66,6 +77,13 @@ public class DocumentClass : MonoBehaviour {
 				LoadNextScene();
 			}
 		}
+
+		/*Loading ChallengeMode Scene while in Challenge Mode*/
+		if (Config.ChallengeMode && Application.loadedLevelName != "ChallengeMode") {
+			Debug.Log ("Loading Challenge Mode Scene");
+			Application.LoadLevel ("ChallengeMode");
+		}
+
 			
 	}
 
@@ -73,14 +91,18 @@ public class DocumentClass : MonoBehaviour {
 		//font: Bank Gothic Medium BT
 		//Draw Background Texture
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
-		GUI.DrawTexture (new Rect (Screen.width-122, Screen.height-51, 122, 51), LogoTex);
+		GUI.DrawTexture (new Rect (Screen.width-122, Screen.height-51, 122, 51), _logoTex);
 
 		if (_enableGUI) {
 
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height/5), _guiUnderlayTex);
-			GUI.Label (new Rect (10,10, 80, 50), "Main Menu: 1");
-			GUI.Label (new Rect (100,10, 80, 50), "How To: 2");
-			GUI.Label (new Rect (190,10, 80, 50), "Behind the Scenes: 3");
+			GUI.Label (new Rect (10,10, 80, 50), "Main Menu: 1", _fontStyle);
+			GUI.Label (new Rect (130,10, 80, 50), "How To: 2", _fontStyle);
+			GUI.Label (new Rect (230,10, 80, 50), "Behind the Scenes: 3", _fontStyle);
+		}
+
+		if (Application.loadedLevelName == "ChallengeMode") {
+			GUI.DrawTexture (new Rect (Screen.width/2 - (_challengeModeTex.width/2),Screen.height/2 - (_challengeModeTex.height/2), _challengeModeTex.width, _challengeModeTex.height), _challengeModeTex);
 		}
 
 	}//end OnGUI
@@ -92,5 +114,6 @@ public class DocumentClass : MonoBehaviour {
 		if (_currSceneCounter > _scenes.Length)
 						_currSceneCounter = 0;
 		Application.LoadLevel(_scenes[_currSceneCounter]);
+		Debug.Log ("Loaded next Scene");
 	}
 }
