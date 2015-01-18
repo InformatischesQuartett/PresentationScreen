@@ -9,9 +9,8 @@ public class BehindTheScenes : MonoBehaviour {
 	private float _updateStep;
 	private float _updateTimer;
 
-	private DocumentClass docClass;
-	
-    	private MovieTexture _movieTexture;
+	private DocumentClass _docClass;
+    private MovieTexture _movieTexture;
 
     private const string path = @"E:\Dropbox\HS Furtwangen\Master\1. Semester\Interaktionsdesign\BlinkenTiles\Assets\StreamingAssets\Network";
 	
@@ -26,7 +25,7 @@ public class BehindTheScenes : MonoBehaviour {
 
 		LoadImages();
 
-		docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
+		_docClass = (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
 	}
 
 	private void LoadImages()
@@ -54,22 +53,32 @@ public class BehindTheScenes : MonoBehaviour {
 	    var imgRight = 993*sizeFactor;
 	    var imgBottom = 681*sizeFactor;
 
-		if (_updateTimer > 4)
+	    if (_updateTimer > 8)
+	    {
+	        GUI.color = new Color(1, 1, 1, Mathf.Min(1.0f, (_updateTimer-8)/2.0f));
             GUI.DrawTexture(new Rect(imgLeft, imgTop, imgWidth, imgHeight), _imageFiles[0]);
+	    }
 
-		if (_updateTimer > 12)
-			GUI.DrawTexture(new Rect(imgRight, imgTop, imgWidth, imgHeight), _imageFiles[1]);
+	    if (_updateTimer > 20)
+	    {
+            GUI.color = new Color(1, 1, 1, Mathf.Min(1.0f, (_updateTimer - 20) / 2.0f));
+            GUI.DrawTexture(new Rect(imgRight, imgTop, imgWidth, imgHeight), _imageFiles[1]);
+	    }
 
-		if (_updateTimer > 20)
-			GUI.DrawTexture(new Rect(imgRight, imgBottom, imgWidth, imgHeight), _imageFiles[2]);
+        if (_updateTimer > 32)
+        {
+            GUI.color = new Color(1, 1, 1, Mathf.Min(1.0f, (_updateTimer - 32) / 2.0f));
+            GUI.DrawTexture(new Rect(imgLeft, imgBottom, imgWidth, imgHeight), _imageFiles[2]);
+        }
 
-		if (_updateTimer > 28)
-			GUI.DrawTexture(new Rect(imgLeft, imgBottom, imgWidth, imgHeight), _imageFiles[3]);
+        if (_updateTimer > 44)
+        {
+            GUI.color = new Color(1, 1, 1, Mathf.Min(1.0f, (_updateTimer - 32) / 2.0f));
+            GUI.DrawTexture(new Rect(imgRight, imgBottom, imgWidth, imgHeight), _imageFiles[3]);
+        }
 
-		if (_updateTimer > 32)
-		{
-			docClass.LoadNextScene();
-		}
+        if (_updateTimer > 56)
+			_docClass.LoadNextScene();
 
 		_updateTimer += Time.deltaTime;
 	}
