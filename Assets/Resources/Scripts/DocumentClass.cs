@@ -10,6 +10,11 @@ public class DocumentClass : MonoBehaviour {
 	private Texture2D _guiUnderlayTex;
 
 	private bool _enableGUI = true;
+
+	/*Determines which Scene is currently loaded*/
+	private int _currSceneCounter = 0;
+
+	private string[] _scenes;
 	
 	void Awake () {
 		DontDestroyOnLoad(this);
@@ -18,6 +23,7 @@ public class DocumentClass : MonoBehaviour {
 	void Start () {
 		_backgroundTex = (Texture2D) Resources.Load ("Textures/background", typeof(Texture2D));
 		_guiUnderlayTex = (Texture2D) Resources.Load ("Textures/guiUnderlay", typeof(Texture2D));
+		_scenes = new string[]  {"MainMenu", "HowTo", "BehindTheScenes"};
 	}
 	
 	// Update is called once per frame
@@ -46,6 +52,7 @@ public class DocumentClass : MonoBehaviour {
 	}
 
 	void OnGUI () {
+		//font: Bank Gothic Medium BT
 		//Draw Background Texture
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
 
@@ -57,12 +64,14 @@ public class DocumentClass : MonoBehaviour {
 			GUI.Label (new Rect (190,10, 80, 50), "Behind the Scenes: 3");
 		}
 
-
-
-				
-				//Application.LoadLevel("MainMenu");
-				
-				//Application.LoadLevel("HowTo");
-
 	}//end OnGUI
+
+	/*Loads next Scene in List*/
+	void loadNextScene () {
+		_currSceneCounter++;
+		/*Reset Counter to loop everything*/
+		if (_currSceneCounter > _scenes.Length)
+						_currSceneCounter = 0;
+		Application.LoadLevel(_scenes[_currSceneCounter]);
+	}
 }
