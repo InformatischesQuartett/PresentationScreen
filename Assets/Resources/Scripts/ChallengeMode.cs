@@ -3,15 +3,9 @@ using System.Collections;
 
 public class ChallengeMode : MonoBehaviour {
 	private DocumentClass _docClass;
-	private GUIStyle _fontStyle;
 
 	// Use this for initialization
 	void Start () {
-		_docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
-		_fontStyle = new GUIStyle();
-		_fontStyle.font = (Font) Resources.Load("Fonts/BNKGOTHM");
-		_fontStyle.normal.textColor = Color.white;
-		_fontStyle.fontSize = 15;
 	}
 	
 	// Update is called once per frame
@@ -23,7 +17,4 @@ public class ChallengeMode : MonoBehaviour {
 		}
 	}
 
-	void OnGUI () {
-		GUI.Label (new Rect (Screen.width/2,Screen.height/2, 300, 300), "CHALLENGE MODE", _fontStyle);
-	}
 }
