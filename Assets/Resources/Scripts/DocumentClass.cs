@@ -3,13 +3,18 @@ using System.Collections;
 
 /**
  * This is the global Document Class which is preserved for all scenes.
- * It manages Scene-Control.
+ * It handles the Scene Loading.
+ * Scenes can be loaded by clicking their respective Keyboard-Keys (enable GUI by pressing Tab to see the keys)
+ * or by entering the Scene Loop.
  **/ 
 public class DocumentClass : MonoBehaviour {
 	private Texture2D _backgroundTex;
 	private Texture2D _guiUnderlayTex;
 
+	public Texture2D LogoTex;
+
 	private bool _enableGUI = true;
+	public bool EnableSceneLoop = false;
 
 	/*Determines which Scene is currently loaded*/
 	private int _currSceneCounter = 0;
@@ -23,6 +28,8 @@ public class DocumentClass : MonoBehaviour {
 	void Start () {
 		_backgroundTex = (Texture2D) Resources.Load ("Textures/background", typeof(Texture2D));
 		_guiUnderlayTex = (Texture2D) Resources.Load ("Textures/guiUnderlay", typeof(Texture2D));
+		LogoTex = (Texture2D) Resources.Load ("Textures/logo", typeof(Texture2D));
+
 		_scenes = new string[]  {"MainMenu", "HowTo", "BehindTheScenes"};
 	}
 	
@@ -43,18 +50,27 @@ public class DocumentClass : MonoBehaviour {
 			Debug.Log("Loading Level: HowTo");
 			Application.LoadLevel("HowTo");
 		}
-		if (Input.GetKeyDown (KeyCode.Keypad3) || Input.GetKeyDown (KeyCode.Alpha2)) {
+		if (Input.GetKeyDown (KeyCode.Keypad3) || Input.GetKeyDown (KeyCode.Alpha3)) {
 			Debug.Log("Loading Level: Behind the Scenes");
 			//Application.LoadLevel("BehindTheScenes");
 		}
+		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha4)) {
+			EnableSceneLoop = !EnableSceneLoop;
+			Debug.Log("Loop Scenes: " + EnableSceneLoop);
 
-	
+			/*Start the loop*/
+			if (EnableSceneLoop) {
+				LoadNextScene();
+			}
+		}
+			
 	}
 
 	void OnGUI () {
 		//font: Bank Gothic Medium BT
 		//Draw Background Texture
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
+		GUI.DrawTexture (new Rect (Screen.width-122, Screen.height-51, 122, 51), LogoTex);
 
 		if (_enableGUI) {
 
@@ -67,7 +83,7 @@ public class DocumentClass : MonoBehaviour {
 	}//end OnGUI
 
 	/*Loads next Scene in List*/
-	void loadNextScene () {
+	public void LoadNextScene () {
 		_currSceneCounter++;
 		/*Reset Counter to loop everything*/
 		if (_currSceneCounter > _scenes.Length)

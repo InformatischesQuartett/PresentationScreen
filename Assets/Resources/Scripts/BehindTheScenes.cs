@@ -9,6 +9,8 @@ public class BehindTheScenes : MonoBehaviour {
 	private float _updateStep;
 	private float _updateTimer;
 
+	private DocumentClass docClass;
+
 	private const string path = @"C:\Users\Fabian\Dropbox\HS Furtwangen\Master\1. Semester\Interaktionsdesign\BlinkenTiles\Assets\StreamingAssets\Network";
 	
 	private void Start () {
@@ -18,6 +20,8 @@ public class BehindTheScenes : MonoBehaviour {
 		_updateTimer = 0;
 
 		LoadImages();
+
+		docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
 	}
 
 	private void LoadImages()
@@ -54,7 +58,9 @@ public class BehindTheScenes : MonoBehaviour {
 
 			if (_updateStep == 3)
 			{
-				// LoadScene muss hier rein
+				/*Go to next Scene*/
+				docClass.LoadNextScene();
+
 				return;
 			}
 
