@@ -7,18 +7,22 @@ public class LoadExtData : MonoBehaviour {
 	private TextAsset textAsset;
 	private XmlDocument xmldoc;
 
+
 	// Use this for initialization
 	void Start () {
-
-		xmldoc = new XmlDocument ();
-		textAsset = (TextAsset)Resources.Load ("MyXMLFile");
-		xmldoc.LoadXml ( textAsset.text );
-
-		Debug.Log (xmldoc);
+		PrintValues ();
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+	public void PrintValues(){
+		Debug.Log ("ChallengeMode: " + Config.ChallengeMode);
+		Debug.Log ("DemoTime: " + Config.DemoTime);
+		Debug.Log ("SongTitle: " + Config.SongTitle);
+	}
+
 }
