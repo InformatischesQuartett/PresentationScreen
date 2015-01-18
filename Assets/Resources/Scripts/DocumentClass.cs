@@ -90,19 +90,23 @@ public class DocumentClass : MonoBehaviour {
 	void OnGUI () {
 		//font: Bank Gothic Medium BT
 		//Draw Background Texture
-		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
-		GUI.DrawTexture (new Rect (Screen.width-122, Screen.height-51, 122, 51), _logoTex);
+		if (Application.loadedLevelName == "MainMenu" || Application.loadedLevelName == "ChallengeMode") {
+			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
+			GUI.DrawTexture (new Rect (Screen.width - 122, Screen.height - 51, 122, 51), _logoTex);
+		}
 
 		if (_enableGUI) {
 
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height/5), _guiUnderlayTex);
-			GUI.Label (new Rect (10,10, 80, 50), "Main Menu: 1", _fontStyle);
-			GUI.Label (new Rect (130,10, 80, 50), "How To: 2", _fontStyle);
-			GUI.Label (new Rect (230,10, 80, 50), "Behind the Scenes: 3", _fontStyle);
+			GUI.Label (new Rect (10,10, 80, 50), "MAIN MENU: 1", _fontStyle);
+			GUI.Label (new Rect (130,10, 80, 50), "HOW TO: 2", _fontStyle);
+			GUI.Label (new Rect (230,10, 80, 50), "BEHIND THE SCENES: 3", _fontStyle);
 		}
 
 		if (Application.loadedLevelName == "ChallengeMode") {
 			GUI.DrawTexture (new Rect (Screen.width/2 - (_challengeModeTex.width/2),Screen.height/2 - (_challengeModeTex.height/2), _challengeModeTex.width, _challengeModeTex.height), _challengeModeTex);
+			GUI.Label (new Rect (Screen.width/2 - (_challengeModeTex.width/2), Screen.height/1.5f, 80, 50), "CURRENT SONG: " + Config.SongTitle + ", \tTIME REMAINING: " + Config.DemoTime, _fontStyle);
+
 		}
 
 	}//end OnGUI

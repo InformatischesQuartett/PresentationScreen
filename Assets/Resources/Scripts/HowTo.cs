@@ -3,17 +3,20 @@ using System.Collections;
 
 
 public class HowTo : MonoBehaviour {
-
-	/*Boolean that determines if scene is ready to be exited*/
-	public bool sceneFinished = false;
+	
+	private DocumentClass _docClass;
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("HowTo-Scene loaded");
+		_docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//_docClass.LoadNextScene();
+	}
+
+	void OnGUI () {
+		//GUI.DrawTexture ();
 	}
 }
