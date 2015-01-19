@@ -68,11 +68,11 @@ public class DocumentClass : MonoBehaviour {
 			Debug.Log("Loading Level: Behind the Scenes");
 			Application.LoadLevel("BehindTheScenes");
 		}
-		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha3)) {
+		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha4)) {
 			Debug.Log("Loading Level: Time Lapse");
 			Application.LoadLevel("TimeLapse");
 		}
-		if (Input.GetKeyDown (KeyCode.Keypad5) || Input.GetKeyDown (KeyCode.Alpha4)) {
+		if (Input.GetKeyDown (KeyCode.Keypad5) || Input.GetKeyDown (KeyCode.Alpha5)) {
 			EnableSceneLoop = !EnableSceneLoop;
 			Debug.Log("Loop Scenes: " + EnableSceneLoop);
 
