@@ -11,6 +11,7 @@ public static class Config {
 	public static bool ChallengeMode { get; private set; }
 	public static float DemoTime { get; private set; }
 	public static string SongTitle { get; private set; }
+    public static string SongLength { get; private set; }
 
 	public static bool createdDocClass { get; set; }
 
@@ -26,7 +27,7 @@ public static class Config {
 		createdDocClass = false;
 
 
-
+        PrintValues();
 	}//end constructor
 
 	public static void LoadData() {
@@ -39,6 +40,7 @@ public static class Config {
 		
 		bool tmpBool;
 		float tmpFloat;
+	    float tmpLength;
 		foreach (XmlNode element in networkSet[0].ChildNodes) {
 			
 			switch (element.Name) {
@@ -56,6 +58,10 @@ public static class Config {
 						var childNodes = element.ChildNodes;
 						Config.SongTitle = childNodes [0].InnerText;
 						break;
+                case "Length":
+                        var achildNodes = element.ChildNodes;
+                        Config.SongLength = achildNodes[0].InnerText;
+						break;
 		
 				default:
 						Debug.Log ("Warning: Ran into default Case in Config::Config()");
@@ -70,6 +76,7 @@ public static class Config {
 		Debug.Log ("ChallengeMode: " + Config.ChallengeMode);
 		Debug.Log ("DemoTime: " + Config.DemoTime);
 		Debug.Log ("SongTitle: " + Config.SongTitle);
+        Debug.Log("SongLength: " + Config.SongLength);
 	}
 
 
