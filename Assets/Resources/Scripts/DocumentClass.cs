@@ -117,7 +117,7 @@ public class DocumentClass : MonoBehaviour {
 	public void LoadNextScene () {
 		_currSceneCounter++;
 		/*Reset Counter to loop everything*/
-		if (_currSceneCounter > _scenes.Length)
+		if (_currSceneCounter >= _scenes.Length)
 						_currSceneCounter = 0;
 		Application.LoadLevel(_scenes[_currSceneCounter]);
 		Debug.Log ("Loaded next Scene");
