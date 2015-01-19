@@ -2,19 +2,29 @@
 using System.Collections;
 
 public class TimeLapse : MonoBehaviour {
-	private DocumentClass _docClass;
+    private DocumentClass _docClass;
+    private MovieTexture _movieTexture;
 
-	// Use this for initialization
-	void Start () {
-		_docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		//_docClass.LoadNextScene();
-	}
+    private float _updateTimer;
 
-	void OnGUI () {
-		//GUI.DrawTexture ();
-	}
+    private void Start()
+    {
+        _docClass = (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
+
+        _movieTexture = Resources.Load<MovieTexture>("Textures/Timelapse");
+        _movieTexture.Play();
+    }
+
+    private void Update()
+    {
+        _updateTimer += Time.deltaTime;
+
+        if (_updateTimer > 7)
+            _docClass.LoadNextScene();
+    }
+
+    private void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _movieTexture);
+    }
 }
