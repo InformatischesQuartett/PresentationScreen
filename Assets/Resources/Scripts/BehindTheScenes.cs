@@ -6,7 +6,6 @@ public class BehindTheScenes : MonoBehaviour {
 
 	private Texture2D[] _imageFiles;
 
-	private float _updateStep;
 	private float _updateTimer;
 
 	private DocumentClass _docClass;
@@ -17,7 +16,6 @@ public class BehindTheScenes : MonoBehaviour {
 	private void Start () {
 		_imageFiles = new Texture2D[4];
 
-		_updateStep = 0;
 		_updateTimer = 0;
 
         _movieTexture = Resources.Load<MovieTexture>("Textures/BehindTheScenes");
