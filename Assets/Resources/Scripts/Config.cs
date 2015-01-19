@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Xml;
 
@@ -11,10 +12,10 @@ public static class Config {
 	public static bool ChallengeMode { get; private set; }
 	public static float DemoTime { get; private set; }
 	public static string SongTitle { get; private set; }
-    public static string SongLength { get; private set; }
+    public static float SongLength { get; private set; }
+    public static float TimeRemaining { get; set; }
 
 	public static bool createdDocClass { get; set; }
-
 
 	/// <summary>
 	/// Initializes the Config Class by parsing all Values in the network.xml file referenced by the filePathProperty.
@@ -39,7 +40,8 @@ public static class Config {
 		XmlNodeList networkSet = xmldoc.GetElementsByTagName ("NetworkSet");
 		
 		bool tmpBool;
-		float tmpFloat;
+	    float tmpFloat = 0;
+		
 	    float tmpLength;
 		foreach (XmlNode element in networkSet[0].ChildNodes) {
 			
@@ -50,8 +52,11 @@ public static class Config {
 						break;
 		
 				case "DemoTime":
-						float.TryParse (element.InnerText, out tmpFloat);
-						Config.DemoTime = tmpFloat;
+                        float.TryParse(element.InnerText, out tmpFloat);
+			            string sDemo = tmpFloat.ToString();
+                        tmpFloat = float.Parse(sDemo);
+			            float f = tmpFloat - 0;
+			            Config.DemoTime = f;
 						break;
 		
 				case "Song":
@@ -59,10 +64,12 @@ public static class Config {
 						Config.SongTitle = childNodes [0].InnerText;
 						break;
                 case "Length":
-                        var achildNodes = element.ChildNodes;
-                        Config.SongLength = achildNodes[0].InnerText;
+                        var childNodes2 = element.ChildNodes;
+                        string sLength = childNodes2[0].InnerText;
+                        var tmpFloat2 = float.Parse(sLength);
+			            float f2 = tmpFloat2 - 0;
+			            Config.SongLength = f2;
 						break;
-		
 				default:
 						Debug.Log ("Warning: Ran into default Case in Config::Config()");
 						break;
