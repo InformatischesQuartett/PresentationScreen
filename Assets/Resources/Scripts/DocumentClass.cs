@@ -43,12 +43,20 @@ public class DocumentClass : MonoBehaviour {
 		_fontStyle.fontSize = 15;
 
 	}
-	
+
+    private float StartTimer;
+    private bool first = true;
 	// Update is called once per frame
 	void Update () {
-		Config.LoadData ();
-		//Config.PrintValues ();
 
+	    if (first == true)
+	    {
+	        StartTimer = Time.time;
+	        first = false;
+	    }
+
+	    Config.TimeRemaining = Config.SongLength-Time.time;
+		Config.LoadData ();
 
 		/*Turning GUI on and off*/
 		if (Input.GetKeyDown (KeyCode.Tab)) {
@@ -105,9 +113,10 @@ public class DocumentClass : MonoBehaviour {
 			GUI.Label (new Rect (10,10, 80, 50), "MAIN MENU: 1, \t\tHOW TO: 2, \tBEHIND THE SCENES: 3, \tTIME LAPSE: 4; \tLOOP MODE: 5", _fontStyle);
 		}
 
+	    
 		if (Application.loadedLevelName == "ChallengeMode") {
 			GUI.DrawTexture (new Rect (Screen.width/2 - (_challengeModeTex.width/2),Screen.height/2 - (_challengeModeTex.height/2), _challengeModeTex.width, _challengeModeTex.height), _challengeModeTex);
-			GUI.Label (new Rect (Screen.width/2 - (_challengeModeTex.width/2), Screen.height/1.5f, 80, 50), "CURRENT SONG: " + Config.SongTitle + ", \tTIME REMAINING: " + Config.DemoTime, _fontStyle);
+			GUI.Label (new Rect (Screen.width/2 - (_challengeModeTex.width/2), Screen.height/1.5f, 80, 50), "CURRENT SONG: " + Config.SongTitle + ", \tTIME REMAINING: " + Config.TimeRemaining, _fontStyle);
 
 		}
 
