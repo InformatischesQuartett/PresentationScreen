@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChallengeMode : MonoBehaviour {
+public class TimeLapse : MonoBehaviour {
 	private DocumentClass _docClass;
 
 	// Use this for initialization
@@ -11,11 +11,10 @@ public class ChallengeMode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		/*Exit Challenge Mode Scene when finished with song*/
-		if (!Config.ChallengeMode) {
-			_docClass.LoadNextScene();
-		}
+		//_docClass.LoadNextScene();
 	}
 
+	void OnGUI () {
+		//GUI.DrawTexture ();
+	}
 }

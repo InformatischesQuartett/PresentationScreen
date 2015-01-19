@@ -35,7 +35,7 @@ public class DocumentClass : MonoBehaviour {
 		_logoTex = (Texture2D) Resources.Load ("Textures/logo", typeof(Texture2D));
 		_challengeModeTex = (Texture2D) Resources.Load ("Textures/challengeMode", typeof(Texture2D));
 
-		_scenes = new string[]  {"MainMenu", "HowTo", "BehindTheScenes"};
+		_scenes = new string[]  {"HowTo", "BehindTheScenes", "TimeLapse"};
 
 		_fontStyle = new GUIStyle();
 		_fontStyle.font = (Font) Resources.Load("Fonts/BNKGOTHM");
@@ -57,7 +57,7 @@ public class DocumentClass : MonoBehaviour {
 
 		/*Switching Levels*/
 		if (Input.GetKeyDown (KeyCode.Keypad1) || Input.GetKeyDown (KeyCode.Alpha1)) {
-			Debug.Log("Loading Level: HowTo");
+			Debug.Log("Loading Level: MainMenu");
 			Application.LoadLevel("MainMenu");
 		}
 		if (Input.GetKeyDown (KeyCode.Keypad2) || Input.GetKeyDown (KeyCode.Alpha2)) {
@@ -68,7 +68,11 @@ public class DocumentClass : MonoBehaviour {
 			Debug.Log("Loading Level: Behind the Scenes");
 			Application.LoadLevel("BehindTheScenes");
 		}
-		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha4)) {
+		if (Input.GetKeyDown (KeyCode.Keypad4) || Input.GetKeyDown (KeyCode.Alpha3)) {
+			Debug.Log("Loading Level: Time Lapse");
+			Application.LoadLevel("TimeLapse");
+		}
+		if (Input.GetKeyDown (KeyCode.Keypad5) || Input.GetKeyDown (KeyCode.Alpha4)) {
 			EnableSceneLoop = !EnableSceneLoop;
 			Debug.Log("Loop Scenes: " + EnableSceneLoop);
 
@@ -98,9 +102,7 @@ public class DocumentClass : MonoBehaviour {
 		if (_enableGUI) {
 
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height/5), _guiUnderlayTex);
-			GUI.Label (new Rect (10,10, 80, 50), "MAIN MENU: 1", _fontStyle);
-			GUI.Label (new Rect (130,10, 80, 50), "HOW TO: 2", _fontStyle);
-			GUI.Label (new Rect (230,10, 80, 50), "BEHIND THE SCENES: 3", _fontStyle);
+			GUI.Label (new Rect (10,10, 80, 50), "MAIN MENU: 1, \t\tHOW TO: 2, \tBEHIND THE SCENES: 3, \tTIME LAPSE: 4; \tLOOP MODE: 5", _fontStyle);
 		}
 
 		if (Application.loadedLevelName == "ChallengeMode") {
