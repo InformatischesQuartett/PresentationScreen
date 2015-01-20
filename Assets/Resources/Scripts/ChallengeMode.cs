@@ -3,10 +3,15 @@ using System.Collections;
 
 public class ChallengeMode : MonoBehaviour {
 	private DocumentClass _docClass;
-
-	// Use this for initialization
+    public MovieTexture _movieTexture;
+    private float _updateTimer;
+    
+    // Use this for initialization
 	void Start () {
 		_docClass =  (DocumentClass)GameObject.Find("DocumentClassObj").GetComponent("DocumentClass");
+
+        _movieTexture = Resources.Load<MovieTexture>("Textures/HowTo2");
+        _movieTexture.Play();
 	}
 	
 	// Update is called once per frame
@@ -17,5 +22,15 @@ public class ChallengeMode : MonoBehaviour {
 			_docClass.LoadNextScene();
 		}
 	}
+
+    private void OnGUI()
+    {
+
+        if (_updateTimer < 12)
+        {
+            GUI.depth = 1;
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _movieTexture);
+        }
+    }
 
 }

@@ -102,6 +102,7 @@ public class DocumentClass : MonoBehaviour {
 	void OnGUI () {
 		//font: Bank Gothic Medium BT
 		//Draw Background Texture
+        GUI.depth = 2;
 		if (Application.loadedLevelName == "MainMenu" || Application.loadedLevelName == "ChallengeMode") {
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
 			GUI.DrawTexture (new Rect (Screen.width - 122, Screen.height - 51, 122, 51), _logoTex);
