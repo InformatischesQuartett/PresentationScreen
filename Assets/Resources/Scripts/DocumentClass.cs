@@ -126,6 +126,7 @@ public class DocumentClass : MonoBehaviour {
 	/*Loads next Scene in List*/
 	public void LoadNextScene () {
 		_currSceneCounter++;
+	    first = false;
 		/*Reset Counter to loop everything*/
 		if (_currSceneCounter >= _scenes.Length)
 						_currSceneCounter = 0;
