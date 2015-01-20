@@ -44,17 +44,8 @@ public class DocumentClass : MonoBehaviour {
 
 	}
 
-    private float StartTimer;
-    private bool first = true;
 	// Update is called once per frame
 	void Update () {
-
-	    if (first == true)
-	    {
-	        StartTimer = Time.time;
-	        first = false;
-	    }
-
 	    Config.TimeRemaining = Config.SongLength-Time.time;
 		Config.LoadData ();
 
@@ -95,14 +86,13 @@ public class DocumentClass : MonoBehaviour {
 			Debug.Log ("Loading Challenge Mode Scene");
 			Application.LoadLevel ("ChallengeMode");
 		}
-
-			
 	}
 
 	void OnGUI () {
 		//font: Bank Gothic Medium BT
 		//Draw Background Texture
-        GUI.depth = 2;
+	    GUI.depth = 2;
+
 		if (Application.loadedLevelName == "MainMenu" || Application.loadedLevelName == "ChallengeMode") {
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _backgroundTex);
 			GUI.DrawTexture (new Rect (Screen.width - 122, Screen.height - 51, 122, 51), _logoTex);
@@ -110,15 +100,19 @@ public class DocumentClass : MonoBehaviour {
 
 		if (_enableGUI) {
 
-			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height/5), _guiUnderlayTex);
+			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height/5f), _guiUnderlayTex);
 			GUI.Label (new Rect (10,10, 80, 50), "MAIN MENU: 1, \t\tHOW TO: 2, \tBEHIND THE SCENES: 3, \tTIME LAPSE: 4; \tLOOP MODE: 5", _fontStyle);
 		}
 
-	    
 		if (Application.loadedLevelName == "ChallengeMode") {
 			GUI.DrawTexture (new Rect (Screen.width/2 - (_challengeModeTex.width/2),Screen.height/2 - (_challengeModeTex.height/2), _challengeModeTex.width, _challengeModeTex.height), _challengeModeTex);
-			GUI.Label (new Rect (Screen.width/2 - (_challengeModeTex.width/2), Screen.height/1.5f, 80, 50), "CURRENT SONG: " + Config.SongTitle + ", \tTIME REMAINING: " + Config.TimeRemaining, _fontStyle);
 
+            _fontStyle.fontSize = 30;
+            _fontStyle.alignment = TextAnchor.MiddleCenter;
+            var time = string.Format("{0:N2}s", Config.TimeRemaining);
+            GUI.Label(new Rect(0, Screen.height / 1.5f, Screen.width, 50), "CURRENT SONG: " + Config.SongTitle + ", \nTIME REMAINING: " + time, _fontStyle);
+		    _fontStyle.alignment = TextAnchor.MiddleLeft;
+            _fontStyle.fontSize = 12;
 		}
 
 	}//end OnGUI
@@ -126,7 +120,7 @@ public class DocumentClass : MonoBehaviour {
 	/*Loads next Scene in List*/
 	public void LoadNextScene () {
 		_currSceneCounter++;
-	    first = false;
+
 		/*Reset Counter to loop everything*/
 		if (_currSceneCounter >= _scenes.Length)
 						_currSceneCounter = 0;

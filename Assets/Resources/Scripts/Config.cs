@@ -38,21 +38,19 @@ public static class Config {
 		
 		//gets firs 
 		XmlNodeList networkSet = xmldoc.GetElementsByTagName ("NetworkSet");
-		
-		bool tmpBool;
-	    float tmpFloat = 0;
-		
-	    float tmpLength;
-		foreach (XmlNode element in networkSet[0].ChildNodes) {
+
+	    foreach (XmlNode element in networkSet[0].ChildNodes) {
 			
 			switch (element.Name) {
 				case "ChallengeMode":
-						bool.TryParse (element.InnerText, out tmpBool);
+			        bool tmpBool;
+			        bool.TryParse (element.InnerText, out tmpBool);
 						Config.ChallengeMode = tmpBool;
 						break;
 		
 				case "DemoTime":
-                        float.TryParse(element.InnerText, out tmpFloat);
+			        float tmpFloat;
+			        float.TryParse(element.InnerText, out tmpFloat);
 			            string sDemo = tmpFloat.ToString();
                         tmpFloat = float.Parse(sDemo);
 			            float f = tmpFloat - 0;
