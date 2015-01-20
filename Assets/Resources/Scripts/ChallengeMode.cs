@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ChallengeMode : MonoBehaviour {
 	private DocumentClass _docClass;
-    public MovieTexture _movieTexture;
+    private MovieTexture _movieTexture;
+
     private float _updateTimer;
     
     // Use this for initialization
@@ -25,12 +26,10 @@ public class ChallengeMode : MonoBehaviour {
 
     private void OnGUI()
     {
+        _updateTimer += Time.deltaTime;
 
-        if (_updateTimer < 12)
-        {
-            GUI.depth = 1;
+        if (_updateTimer < 32)
             GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _movieTexture);
-        }
     }
 
 }
